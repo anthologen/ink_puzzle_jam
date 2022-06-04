@@ -10,16 +10,30 @@ func _ready():
 		$VBoxContainer/ExitButton.queue_free()
 
 
+func pre_start(params):
+	var cur_scene: Node = get_tree().current_scene
+	print("Current scene is: ", cur_scene.name, " (", cur_scene.filename, ")")
+	print("menu.gd: pre_start() called with params = ")
+	if params:
+		for key in params:
+			var val = params[key]
+			printt("", key, val)
+	if "is_win" in params:
+		var is_win = params["is_win"]
+		$VBoxContainer/PlayButton.text = "REPLAY"
+		if is_win:
+			$CenterContainer/TitleVBox/Message.text = "You Won!"
+		else:
+			$CenterContainer/TitleVBox/Message.text = "You Lost!"
+
+
 func _on_PlayButton_pressed() -> void:
 	var params = {
 		show_progress_bar = true,
 		"a_number": 10,
 		"a_string": "Ciao mamma!",
 		"an_array": [1, 2, 3, 4],
-		"a_dict": {
-			"name": "test",
-			"val": 15
-		},
+		"a_dict": {"name": "test", "val": 15},
 	}
 	Game.change_scene("res://scenes/gameplay/gameplay.tscn", params)
 
@@ -28,9 +42,7 @@ func _on_ExitButton_pressed() -> void:
 	# gently shutdown the game
 	var transitions = get_node_or_null("/root/Transitions")
 	if transitions:
-		transitions.fade_in({
-			'show_progress_bar': false
-		})
+		transitions.fade_in({'show_progress_bar': false})
 		yield(transitions.anim, "animation_finished")
 		yield(get_tree().create_timer(0.3), "timeout")
 	get_tree().quit()
