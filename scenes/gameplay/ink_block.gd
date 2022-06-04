@@ -1,7 +1,7 @@
 tool
 extends StaticBody2D
 
-enum BlockType { SAND }
+enum BlockType { GRASS, SAND, TOP }
 enum InkMode { DRAW, ERASE }
 
 export var ink_value: int setget set_ink_value, get_ink_value
@@ -117,9 +117,15 @@ func get_block_type() -> int:
 func _block_type_updated() -> void:
 	if template_sprite and ink_sprite:
 		match block_type:
+			BlockType.GRASS:
+				template_sprite.texture = preload("res://assets/sprites/tile_grass.png")
+				ink_sprite.texture = preload("res://assets/sprites/tile_grass_ink.png")
 			BlockType.SAND:
 				template_sprite.texture = preload("res://assets/sprites/tile_sand.png")
 				ink_sprite.texture = preload("res://assets/sprites/tile_sand_ink.png")
+			BlockType.TOP:
+				template_sprite.texture = preload("res://assets/sprites/tile_top.png")
+				ink_sprite.texture = preload("res://assets/sprites/tile_top_ink.png")
 
 
 func _on_InkSprite_visibility_changed():
