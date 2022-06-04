@@ -84,5 +84,6 @@ margin_bottom = 40.0
 texture = ExtResource( 3 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "drip"
 anims/RESET = SubResource( 2 )
 anims/drip = SubResource( 3 )

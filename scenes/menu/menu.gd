@@ -11,3 +11,25 @@ func _input(event: InputEvent):
 			"a_dict": {"name": "test", "val": 15},
 		}
 		Game.change_scene("res://scenes/gameplay/gameplay.tscn", params)
+
+
+func _ready():
+	$Version/GameVersion.text = ProjectSettings.get_setting("application/config/version")
+	$Version/GodotVersion.text = "Godot %s" % Engine.get_version_info().string
+
+
+func pre_start(params):
+	var cur_scene: Node = get_tree().current_scene
+	print("Current scene is: ", cur_scene.name, " (", cur_scene.filename, ")")
+	print("menu.gd: pre_start() called with params = ")
+	if params:
+		for key in params:
+			var val = params[key]
+			printt("", key, val)
+	if "is_win" in params:
+		var is_win = params["is_win"]
+		$VBoxContainer/PlayButton.text = "REPLAY"
+		if is_win:
+			$CenterContainer/TitleVBox/Message.text = "You Won!"
+		else:
+			$CenterContainer/TitleVBox/Message.text = "You Lost!"
