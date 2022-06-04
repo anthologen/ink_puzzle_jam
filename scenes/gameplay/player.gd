@@ -12,6 +12,8 @@ export (float, 0, 1.0) var acceleration = 0.25
 
 var velocity = Vector2.ZERO
 
+onready var ink_radius := $InkRadius as Area2D
+
 
 func get_input():
 	var dir := 0.0

@@ -7,11 +7,14 @@ export var ink_value: int setget set_ink_value, get_ink_value
 export var ink_max: int setget set_ink_max, get_ink_max
 export (BlockType) var block_type: int setget set_block_type, get_block_type
 
+var button_index := -1 setget set_button_index, get_button_index
+
 onready var collision_shape_2d := $CollisionShape2D as CollisionShape2D
 onready var template_sprite := $TemplateSprite as Sprite
 onready var ink_sprite := $InkSprite as Sprite
 onready var ink_material := ink_sprite.material.duplicate() as ShaderMaterial
 onready var tween := $Tween as Tween
+onready var input_sprite := $InputSprite as Sprite
 
 
 func _ready():
@@ -106,3 +109,16 @@ func _on_InkSprite_visibility_changed():
 
 func _update_ink_progress(progress: float) -> void:
 	ink_material.set_shader_param("percent", progress)
+
+
+func set_button_index(p_button_index: int) -> void:
+	button_index = p_button_index
+	_button_index_updated()
+
+
+func get_button_index() -> int:
+	return button_index
+
+
+func _button_index_updated() -> void:
+	pass
