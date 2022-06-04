@@ -13,6 +13,7 @@ shader_param/percent = 1
 extents = Vector2( 64, 64 )
 
 [node name="Block" type="StaticBody2D"]
+input_pickable = true
 script = ExtResource( 1 )
 ink_max = 1
 
@@ -26,7 +27,6 @@ texture = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
-disabled = true
 
 [node name="Tween" type="Tween" parent="."]
 
