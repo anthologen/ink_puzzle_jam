@@ -1,5 +1,6 @@
 [gd_scene load_steps=7 format=2]
 
+[ext_resource path="res://scenes/gameplay/ink_block.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/gameplay/player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/gameplay/pause-layer/pause-layer.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/gameplay/InkDisplay.gd" type="Script" id=3]
@@ -20,6 +21,12 @@ speed = 240
 jump_speed = -250
 gravity = 250
 
+[node name="Block" parent="." instance=ExtResource( 1 )]
+position = Vector2( 420, 274 )
+ink_value = 2
+ink_max = 4
+
+[node name="Tween" type="Tween" parent="."]
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2( 208, 211 )
 

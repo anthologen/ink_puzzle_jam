@@ -1,4 +1,4 @@
-[gd_resource type="VisualShader" load_steps=6 format=2]
+[gd_resource type="VisualShader" load_steps=7 format=2]
 
 [sub_resource type="VisualShaderNodeScalarUniform" id=1]
 uniform_name = "percent"
@@ -13,6 +13,9 @@ input_name = "uv"
 
 [sub_resource type="VisualShaderNodeTexture" id=5]
 source = 2
+
+[sub_resource type="VisualShaderNodeScalarOp" id=6]
+operator = 2
 
 [resource]
 code = "shader_type canvas_item;
@@ -49,9 +52,12 @@ void fragment() {
 // ScalarOp:3
 	float n_out3p0 = step(n_out5p0, n_out2p0);
 
+// ScalarOp:7
+	float n_out7p0 = n_out6p1 * n_out3p0;
+
 // Output:0
 	COLOR.rgb = n_out6p0;
-	COLOR.a = n_out3p0;
+	COLOR.a = n_out7p0;
 
 }
 
@@ -60,10 +66,10 @@ void light() {
 
 }
 "
-graph_offset = Vector2( -314.901, 222.492 )
+graph_offset = Vector2( 96.623, -68.6988 )
 mode = 1
 flags/light_only = false
-nodes/fragment/0/position = Vector2( 1860, 140 )
+nodes/fragment/0/position = Vector2( 2260, 20 )
 nodes/fragment/2/node = SubResource( 1 )
 nodes/fragment/2/position = Vector2( 520, 420 )
 nodes/fragment/3/node = SubResource( 2 )
@@ -73,5 +79,7 @@ nodes/fragment/4/position = Vector2( 360, -120 )
 nodes/fragment/5/node = SubResource( 4 )
 nodes/fragment/5/position = Vector2( 880, 140 )
 nodes/fragment/6/node = SubResource( 5 )
-nodes/fragment/6/position = Vector2( 1300, -140 )
-nodes/fragment/connections = PoolIntArray( 2, 0, 3, 1, 4, 0, 5, 0, 3, 0, 0, 1, 5, 0, 3, 0, 4, 0, 6, 0, 6, 0, 0, 0 )
+nodes/fragment/6/position = Vector2( 1340, -160 )
+nodes/fragment/7/node = SubResource( 6 )
+nodes/fragment/7/position = Vector2( 1860, 140 )
+nodes/fragment/connections = PoolIntArray( 2, 0, 3, 1, 4, 0, 5, 0, 5, 0, 3, 0, 4, 0, 6, 0, 2, 0, 3, 1, 4, 0, 5, 0, 5, 0, 3, 0, 4, 0, 6, 0, 6, 0, 0, 0, 6, 1, 7, 0, 3, 0, 7, 1, 7, 0, 0, 1, 2, 0, 3, 1, 4, 0, 5, 0, 5, 0, 3, 0, 4, 0, 6, 0, 2, 0, 3, 1, 4, 0, 5, 0, 5, 0, 3, 0, 4, 0, 6, 0, 6, 0, 0, 0, 6, 1, 7, 0, 3, 0, 7, 1, 7, 0, 0, 1 )
