@@ -1,18 +1,46 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://assets/ui-theme.tres" type="Theme" id=1]
-[ext_resource path="res://assets/fonts/open-sans/open-sans-bold.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://assets/title.png" type="Texture" id=2]
+[ext_resource path="res://assets/title_drip.png" type="Texture" id=3]
 [ext_resource path="res://scenes/menu/menu.gd" type="Script" id=5]
-
-[sub_resource type="DynamicFont" id=5]
-size = 60
-font_data = ExtResource( 4 )
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends Label
 
 
 "
+
+[sub_resource type="Animation" id=2]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("DripTexture:margin_top")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "drip"
+length = 5.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("DripTexture:margin_top")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 0.0, 36.0 ]
+}
 
 [node name="Menu" type="Control"]
 anchor_right = 1.0
@@ -24,40 +52,32 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ColorRect" type="ColorRect" parent="."]
-anchor_right = 1.0
-anchor_bottom = 1.0
-color = Color( 0.176471, 0.682353, 0.647059, 1 )
-
 [node name="CenterContainer" type="CenterContainer" parent="."]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_bottom = -339.0
 rect_scale = Vector2( 1, 1.04 )
 
 [node name="TitleVBox" type="VBoxContainer" parent="CenterContainer"]
-margin_left = 834.0
-margin_top = 310.0
-margin_right = 1086.0
-margin_bottom = 431.0
+margin_left = 937.0
+margin_top = 334.0
+margin_right = 982.0
+margin_bottom = 406.0
 
 [node name="Title" type="Label" parent="CenterContainer/TitleVBox"]
-margin_right = 252.0
-margin_bottom = 83.0
-custom_fonts/font = SubResource( 5 )
-text = "Wet Ink"
-uppercase = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
+margin_right = 45.0
+margin_bottom = 34.0
 
 [node name="Message" type="Label" parent="CenterContainer/TitleVBox"]
-margin_top = 87.0
-margin_right = 252.0
-margin_bottom = 121.0
+margin_top = 38.0
+margin_right = 45.0
+margin_bottom = 72.0
+text = "Test"
 align = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
+visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -148,14 +168,17 @@ grow_horizontal = 0
 custom_colors/font_color = Color( 0.886275, 0.87451, 0.87451, 1 )
 text = "Developer 2"
 
-[node name="Developer3" type="Label" parent="Credits"]
-visible = false
-margin_top = 129.0
-margin_right = 157.0
-margin_bottom = 168.0
-grow_horizontal = 0
-custom_colors/font_color = Color( 0.886275, 0.87451, 0.87451, 1 )
-text = "Developer 3"
+[node name="TitleTexture" type="TextureRect" parent="."]
+margin_right = 1920.0
+margin_bottom = 1080.0
+texture = ExtResource( 2 )
 
-[connection signal="pressed" from="VBoxContainer/PlayButton" to="." method="_on_PlayButton_pressed"]
-[connection signal="pressed" from="VBoxContainer/ExitButton" to="." method="_on_ExitButton_pressed"]
+[node name="DripTexture" type="TextureRect" parent="."]
+margin_right = 1920.0
+margin_bottom = 1116.0
+texture = ExtResource( 3 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "drip"
+anims/RESET = SubResource( 2 )
+anims/drip = SubResource( 3 )

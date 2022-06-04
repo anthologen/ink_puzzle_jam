@@ -33,7 +33,6 @@ texture = ExtResource( 4 )
 shape = SubResource( 1 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
-current = true
 
 [node name="InkRadius" type="Area2D" parent="."]
 collision_layer = 2
