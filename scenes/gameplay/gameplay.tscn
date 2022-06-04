@@ -40,3 +40,5 @@ ink_value = 1
 
 [node name="Block2" parent="." instance=ExtResource( 6 )]
 position = Vector2( 631, 282 )
+collision_layer = 2
+collision_mask = 2
