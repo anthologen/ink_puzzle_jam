@@ -1,14 +1,42 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://scenes/gameplay/ink_block.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/gameplay/player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/gameplay/Door.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/gameplay/Lava.gd" type="Script" id=4]
+[ext_resource path="res://assets/sprites/background_treeLarge.png" type="Texture" id=5]
+[ext_resource path="res://assets/sprites/background_cloudB.png" type="Texture" id=6]
+[ext_resource path="res://assets/sprites/background_cloudA.png" type="Texture" id=7]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 131.723, 7.31758 )
 
 [node name="Level2" type="Node2D"]
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2( 0.7, 0.9 )
+
+[node name="BackgroundCloudA" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2( 451, 426 )
+texture = ExtResource( 7 )
+
+[node name="BackgroundCloudA2" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2( 728, 261 )
+texture = ExtResource( 7 )
+
+[node name="BackgroundCloudB" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2( 797, 295 )
+texture = ExtResource( 6 )
+
+[node name="BackgroundCloudA3" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2( 1103, 25 )
+texture = ExtResource( 7 )
+
+[node name="BackgroundTreeLarge" type="Sprite" parent="."]
+position = Vector2( 1274, 224 )
+texture = ExtResource( 5 )
 
 [node name="Block" parent="." instance=ExtResource( 1 )]
 position = Vector2( 482, 622 )
