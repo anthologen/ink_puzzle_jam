@@ -24,7 +24,7 @@ func _input_event(_viewport: Object, event: InputEvent, _shape_idx: int):
 	var mouse_button := event as InputEventMouseButton
 	if mouse_button and mouse_button.pressed:
 		if mouse_button.button_index == BUTTON_LEFT:
-			prints("Added", add_ink(1), "ink")
+			prints("Remainder", add_ink(1), "ink")
 		if mouse_button.button_index == BUTTON_RIGHT:
 			prints("Removed", remove_ink(1), "ink")
 
