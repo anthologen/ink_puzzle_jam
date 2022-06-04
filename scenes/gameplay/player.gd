@@ -162,6 +162,7 @@ func _refresh_ink_radius() -> void:
 					continue  # No ink for drawing
 			overlapping_body.set_button_index(i + 1)
 
+
 func level_win(exit = null):
 	Game.audio_player.stop()
 	$fx/win.play()
@@ -170,10 +171,11 @@ func level_win(exit = null):
 	Game.audio_player.play()
 	Game.change_scene(exit if exit else "res://scenes/menu/menu.tscn", params)
 
+
 func level_die():
 	Game.audio_player.stop()
 	$fx/die.play()
 	yield($fx/die, "finished")
 	var params = {"is_win": false}
 	Game.audio_player.play()
-	Game.change_scene("res://scenes/menu/menu.tscn", params)
+	Game.change_scene(get_tree().current_scene.filename, params)
