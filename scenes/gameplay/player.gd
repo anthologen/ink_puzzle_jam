@@ -32,6 +32,7 @@ func withdraw_player_ink(ink_amount: int) -> bool:
 	ink_level = ink_level - ink_amount
 	print("ink decremented to ", ink_level)
 	emit_signal("ink_changed", ink_level)
+	$fx/draw.play()
 	return true
 
 
@@ -41,6 +42,7 @@ func deposit_player_ink(ink_amount: int):
 	ink_level = min(ink_max, ink_level + ink_amount)
 	print("ink incremented to ", ink_level)
 	emit_signal("ink_changed", ink_level)
+	$fx/erase.play()
 
 
 func _is_num(key_event: InputEventKey) -> bool:
@@ -117,6 +119,7 @@ func _physics_process(delta):
 		if is_on_floor():
 			velocity.y = jump_speed
 			animation_tree["parameters/playback"].travel("jump")
+			$fx/jump.play()
 
 	if is_zero_approx(velocity.y):
 		if is_zero_approx(dir):
@@ -158,3 +161,19 @@ func _refresh_ink_radius() -> void:
 				else:
 					continue  # No ink for drawing
 			overlapping_body.set_button_index(i + 1)
+
+func level_win(exit = null):
+	Game.audio_player.stop()
+	$fx/win.play()
+	yield($fx/win, "finished")
+	var params = {"is_win": true}
+	Game.audio_player.play()
+	Game.change_scene(exit if exit else "res://scenes/menu/menu.tscn", params)
+
+func level_die():
+	Game.audio_player.stop()
+	$fx/die.play()
+	yield($fx/die, "finished")
+	var params = {"is_win": false}
+	Game.audio_player.play()
+	Game.change_scene("res://scenes/menu/menu.tscn", params)

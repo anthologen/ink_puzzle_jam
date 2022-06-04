@@ -95,4 +95,5 @@ func play_background_music(stream: AudioStream) -> void:
 		return
 
 	audio_player.stream = stream
+	audio_player.volume_db = -5
 	audio_player.play()
