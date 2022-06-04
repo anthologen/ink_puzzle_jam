@@ -13,10 +13,10 @@ script = ExtResource( 5 )
 [node name="PauseLayer" parent="." instance=ExtResource( 2 )]
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
-position = Vector2( 240, 129 )
+position = Vector2( 331, 69 )
 speed = 240
 jump_speed = -250
-gravity = 500
+gravity = 250
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2( 208, 211 )
