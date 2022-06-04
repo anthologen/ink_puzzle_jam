@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://assets/ui-theme.tres" type="Theme" id=1]
 [ext_resource path="res://assets/title.png" type="Texture" id=2]
+[ext_resource path="res://assets/title_drip.png" type="Texture" id=3]
 [ext_resource path="res://scenes/menu/menu.gd" type="Script" id=5]
 
 [sub_resource type="GDScript" id=1]
@@ -9,6 +10,37 @@ script/source = "extends Label
 
 
 "
+
+[sub_resource type="Animation" id=2]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("DripTexture:margin_top")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "drip"
+length = 5.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("DripTexture:margin_top")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 0.0, 36.0 ]
+}
 
 [node name="Menu" type="Control"]
 anchor_right = 1.0
@@ -41,7 +73,16 @@ custom_colors/font_color = Color( 0.92549, 0.92549, 0.92549, 1 )
 text = "<GodotVersion>"
 script = SubResource( 1 )
 
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="TitleTexture" type="TextureRect" parent="."]
 margin_right = 40.0
 margin_bottom = 40.0
 texture = ExtResource( 2 )
+
+[node name="DripTexture" type="TextureRect" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+texture = ExtResource( 3 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/RESET = SubResource( 2 )
+anims/drip = SubResource( 3 )
