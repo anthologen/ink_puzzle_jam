@@ -40,3 +40,5 @@ ink_value = 1
 
 [node name="Block2" parent="." instance=ExtResource( 6 )]
 position = Vector2( 631, 282 )
+
+[connection signal="ink_changed" from="Player" to="HUD/InkDisplay" method="_on_Player_ink_changed"]
