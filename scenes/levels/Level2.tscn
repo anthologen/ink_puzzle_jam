@@ -1,8 +1,12 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scenes/gameplay/ink_block.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/gameplay/player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/gameplay/Door.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/gameplay/Lava.gd" type="Script" id=4]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 131.723, 7.31758 )
 
 [node name="Level2" type="Node2D"]
 
@@ -34,3 +38,14 @@ ink_max = 0
 
 [node name="Door" parent="Block5" instance=ExtResource( 3 )]
 position = Vector2( 3, -147 )
+
+[node name="Lava" type="Area2D" parent="."]
+position = Vector2( 384, 533 )
+scale = Vector2( 10.7916, 6.47228 )
+script = ExtResource( 4 )
+
+[node name="LavaCollider" type="CollisionShape2D" parent="Lava"]
+position = Vector2( 64.2166, 42.1799 )
+shape = SubResource( 1 )
+
+[connection signal="body_entered" from="Lava" to="Lava" method="_on_Lava_body_entered"]

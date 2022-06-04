@@ -16,6 +16,7 @@ func _input(event: InputEvent):
 func _ready():
 	$Version/GameVersion.text = ProjectSettings.get_setting("application/config/version")
 	$Version/GodotVersion.text = "Godot %s" % Engine.get_version_info().string
+	Game.play_background_music(preload("res://assets/audio/background.wav"))
 
 
 func pre_start(params):

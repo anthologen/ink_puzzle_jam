@@ -2,22 +2,25 @@
 # Eg: `Game.change_scene("res://scenes/gameplay/gameplay.tscn)`
 extends Node
 
-
-onready var transitions = get_node_or_null("/root/Transitions")
-
 var pause_scenes_on_transitions = false
 var prevent_input_on_transitions = true
 var scenes: Scenes
 var size: Vector2
+var audio_player := AudioStreamPlayer.new()
+
+onready var transitions = get_node_or_null("/root/Transitions")
 
 
 func _enter_tree() -> void:
-	pause_mode = Node.PAUSE_MODE_PROCESS # needed to make "prevent_input_on_transitions" work even if the game is paused
+	# needed to make "prevent_input_on_transitions" work even if the game is paused
+	pause_mode = Node.PAUSE_MODE_PROCESS
 	_register_size()
 	get_tree().connect("screen_resized", self, "_on_screen_resized")
 	if transitions:
 		transitions.connect("transition_started", self, "_on_Transitions_transition_started")
 		transitions.connect("transition_finished", self, "_on_Transitions_transition_finished")
+
+
 #	add_script("Utils", "utils", "res://addons/game-template/utils.gd")
 
 
@@ -25,6 +28,7 @@ func _ready() -> void:
 	scenes = preload("res://addons/game-template/scenes.gd").new()
 	scenes.name = "Scenes"
 	get_node("/root/").call_deferred("add_child", scenes)
+	add_child(audio_player)
 
 
 func _on_screen_resized():
@@ -40,10 +44,10 @@ func change_scene(new_scene: String, params = {}):
 		printerr("Scene file not found: ", new_scene)
 		return
 
-	if OS.has_feature('HTML5'): # See https://github.com/crystal-bit/godot-game-template/wiki/2.-Features#single-thread-vs-multihtread
-		scenes.change_scene_background_loading(new_scene, params) # single-thread
+	if OS.has_feature('HTML5'):
+		scenes.change_scene_background_loading(new_scene, params)  # single-thread
 	else:
-		scenes.change_scene_multithread(new_scene, params) # multi-thread
+		scenes.change_scene_multithread(new_scene, params)  # multi-thread
 
 
 # Restart the current scene
@@ -65,12 +69,12 @@ func _input(_event: InputEvent):
 		get_tree().set_input_as_handled()
 
 
-func _on_Transitions_transition_started(anim_name):
+func _on_Transitions_transition_started(_anim_name):
 	if pause_scenes_on_transitions:
 		get_tree().paused = true
 
 
-func _on_Transitions_transition_finished(anim_name):
+func _on_Transitions_transition_finished(_anim_name):
 	if pause_scenes_on_transitions:
 		get_tree().paused = false
 
@@ -84,3 +88,11 @@ func add_script(script_name, self_prop_name, script_path):
 func add_script_node(new_node, prop_name):
 	get_tree().root.add_child(new_node)
 	self[prop_name] = new_node
+
+
+func play_background_music(stream: AudioStream) -> void:
+	if stream == audio_player.stream:
+		return
+
+	audio_player.stream = stream
+	audio_player.play()
