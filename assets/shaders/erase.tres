@@ -1,0 +1,151 @@
+[gd_resource type="VisualShader" load_steps=15 format=2]
+
+[sub_resource type="VisualShaderNodeVectorDecompose" id=1]
+
+[sub_resource type="VisualShaderNodeScalarOp" id=2]
+operator = 2
+
+[sub_resource type="VisualShaderNodeTexture" id=3]
+source = 2
+
+[sub_resource type="VisualShaderNodeVectorOp" id=4]
+
+[sub_resource type="VisualShaderNodeVectorCompose" id=5]
+
+[sub_resource type="VisualShaderNodeVectorOp" id=6]
+default_input_values = [ 0, Vector3( 0, 0, 0 ), 1, Vector3( 2, 2, 2 ) ]
+operator = 3
+
+[sub_resource type="VisualShaderNodeScalarUniform" id=7]
+uniform_name = "resolution"
+
+[sub_resource type="VisualShaderNodeScalarUniform" id=8]
+uniform_name = "progress"
+
+[sub_resource type="VisualShaderNodeInput" id=9]
+input_name = "uv"
+
+[sub_resource type="VisualShaderNodeScalarOp" id=10]
+operator = 2
+
+[sub_resource type="VisualShaderNodeVectorOp" id=11]
+operator = 11
+
+[sub_resource type="VisualShaderNodeVectorOp" id=12]
+operator = 4
+
+[sub_resource type="VisualShaderNodeVectorCompose" id=13]
+
+[sub_resource type="VisualShaderNodeVectorCompose" id=14]
+
+[resource]
+code = "shader_type canvas_item;
+uniform float resolution;
+uniform float progress;
+
+
+
+void vertex() {
+// Output:0
+
+}
+
+void fragment() {
+// Texture:12
+	vec3 n_out12p0;
+	float n_out12p1;
+	{
+		vec4 _tex_read = texture(TEXTURE , UV.xy);
+		n_out12p0 = _tex_read.rgb;
+		n_out12p1 = _tex_read.a;
+	}
+
+// Input:4
+	vec3 n_out4p0 = vec3(UV, 0.0);
+
+// ScalarUniform:2
+	float n_out2p0 = resolution;
+
+// VectorCompose:14
+	float n_in14p2 = 0.00000;
+	vec3 n_out14p0 = vec3(n_out2p0, n_out2p0, n_in14p2);
+
+// VectorOp:15
+	vec3 n_in15p1 = vec3(2.00000, 2.00000, 2.00000);
+	vec3 n_out15p0 = n_out14p0 / n_in15p1;
+
+// VectorOp:13
+	vec3 n_out13p0 = n_out4p0 + n_out15p0;
+
+// VectorCompose:8
+	float n_in8p2 = 0.00000;
+	vec3 n_out8p0 = vec3(n_out2p0, n_out2p0, n_in8p2);
+
+// VectorOp:7
+	vec3 n_out7p0 = mod(n_out13p0, n_out8p0);
+
+// ScalarUniform:3
+	float n_out3p0 = progress;
+
+// ScalarOp:5
+	float n_out5p0 = n_out3p0 * n_out2p0;
+
+// VectorCompose:9
+	float n_in9p2 = 0.00000;
+	vec3 n_out9p0 = vec3(n_out5p0, n_out5p0, n_in9p2);
+
+// VectorOp:6
+	vec3 n_out6p0 = step(n_out7p0, n_out9p0);
+
+// VectorDecompose:10
+	float n_out10p0 = n_out6p0.x;
+	float n_out10p1 = n_out6p0.y;
+	float n_out10p2 = n_out6p0.z;
+
+// ScalarOp:11
+	float n_out11p0 = n_out10p0 * n_out10p1;
+
+// Output:0
+	COLOR.rgb = n_out12p0;
+	COLOR.a = n_out11p0;
+
+}
+
+void light() {
+// Output:0
+
+}
+"
+graph_offset = Vector2( -177.545, -59.1386 )
+mode = 1
+flags/light_only = false
+nodes/fragment/0/position = Vector2( 3640, 380 )
+nodes/fragment/2/node = SubResource( 7 )
+nodes/fragment/2/position = Vector2( -40, 380 )
+nodes/fragment/3/node = SubResource( 8 )
+nodes/fragment/3/position = Vector2( -100, 60 )
+nodes/fragment/4/node = SubResource( 9 )
+nodes/fragment/4/position = Vector2( 900, 300 )
+nodes/fragment/5/node = SubResource( 10 )
+nodes/fragment/5/position = Vector2( 620, -20 )
+nodes/fragment/6/node = SubResource( 11 )
+nodes/fragment/6/position = Vector2( 2220, 480 )
+nodes/fragment/7/node = SubResource( 12 )
+nodes/fragment/7/position = Vector2( 1720, 540 )
+nodes/fragment/8/node = SubResource( 13 )
+nodes/fragment/8/position = Vector2( 480, 920 )
+nodes/fragment/9/node = SubResource( 14 )
+nodes/fragment/9/position = Vector2( 1260, -60 )
+nodes/fragment/10/node = SubResource( 1 )
+nodes/fragment/10/position = Vector2( 2640, 460 )
+nodes/fragment/11/node = SubResource( 2 )
+nodes/fragment/11/position = Vector2( 3140, 460 )
+nodes/fragment/12/node = SubResource( 3 )
+nodes/fragment/12/position = Vector2( 2960, 40 )
+nodes/fragment/13/node = SubResource( 4 )
+nodes/fragment/13/position = Vector2( 1400, 300 )
+nodes/fragment/14/node = SubResource( 5 )
+nodes/fragment/14/position = Vector2( 460, 540 )
+nodes/fragment/15/node = SubResource( 6 )
+nodes/fragment/15/position = Vector2( 900, 500 )
+nodes/fragment/connections = PoolIntArray( 2, 0, 8, 0, 2, 0, 8, 1, 7, 0, 6, 0, 5, 0, 9, 0, 5, 0, 9, 1, 9, 0, 6, 1, 6, 0, 10, 0, 10, 0, 11, 0, 10, 1, 11, 1, 11, 0, 0, 1, 12, 0, 0, 0, 3, 0, 5, 0, 2, 0, 5, 1, 4, 0, 13, 0, 2, 0, 14, 0, 2, 0, 14, 1, 14, 0, 15, 0, 15, 0, 13, 1, 8, 0, 7, 1, 13, 0, 7, 0 )
