@@ -32,7 +32,10 @@ _global_script_class_icons={
 
 [application]
 
-config/name="godot-game-template"
+config/name="WET INK"
+config/description="BBGJ
+Theme: A Single Resource
+Use ink to fill in the world, you can also collect ink from the world to pass through or fill in other parts"
 run/main_scene="res://scenes/menu/menu.tscn"
 boot_splash/image="res://assets/splash.png"
 boot_splash/bg_color=Color( 0.0862745, 0.0862745, 0.0862745, 1 )
