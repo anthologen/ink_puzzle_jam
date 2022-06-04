@@ -641,6 +641,9 @@ graph_offset = Vector2( -15.18, -35.4375 )
 
 [node name="Player" type="KinematicBody2D"]
 script = ExtResource( 1 )
+speed = 240
+jump_speed = -250
+gravity = 250
 
 [node name="BodySprite" type="Sprite" parent="."]
 texture = ExtResource( 2 )
@@ -686,6 +689,10 @@ texture = ExtResource( 6 )
 shape = SubResource( 1 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
+current = true
+limit_left = 0
+limit_smoothed = true
+smoothing_enabled = true
 
 [node name="InkRadius" type="Area2D" parent="."]
 visible = false
