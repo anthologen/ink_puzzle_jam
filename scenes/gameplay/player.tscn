@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=2]
+[gd_scene load_steps=41 format=2]
 
 [ext_resource path="res://scenes/gameplay/player.gd" type="Script" id=1]
 [ext_resource path="res://assets/sprites/character_roundRed.png" type="Texture" id=2]
@@ -10,6 +10,11 @@
 [ext_resource path="res://assets/sprites/item_hatTop.png" type="Texture" id=8]
 [ext_resource path="res://assets/face/bored.png" type="Texture" id=9]
 [ext_resource path="res://assets/face/surprise.png" type="Texture" id=10]
+[ext_resource path="res://assets/audio/fx/draw.ogg" type="AudioStream" id=11]
+[ext_resource path="res://assets/audio/fx/erase.ogg" type="AudioStream" id=12]
+[ext_resource path="res://assets/audio/fx/jump.wav" type="AudioStream" id=13]
+[ext_resource path="res://assets/audio/fx/win.ogg" type="AudioStream" id=15]
+[ext_resource path="res://assets/audio/fx/die.ogg" type="AudioStream" id=16]
 
 [sub_resource type="ParticlesMaterial" id=3]
 flag_disable_z = true
@@ -689,7 +694,6 @@ texture = ExtResource( 6 )
 shape = SubResource( 1 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
-current = true
 limit_left = 0
 limit_smoothed = true
 smoothing_enabled = true
@@ -716,6 +720,23 @@ tree_root = SubResource( 15 )
 anim_player = NodePath("../AnimationPlayer")
 active = true
 parameters/playback = SubResource( 16 )
+
+[node name="fx" type="Node2D" parent="."]
+
+[node name="draw" type="AudioStreamPlayer" parent="fx"]
+stream = ExtResource( 11 )
+
+[node name="erase" type="AudioStreamPlayer2D" parent="fx"]
+stream = ExtResource( 12 )
+
+[node name="jump" type="AudioStreamPlayer" parent="fx"]
+stream = ExtResource( 13 )
+
+[node name="win" type="AudioStreamPlayer" parent="fx"]
+stream = ExtResource( 15 )
+
+[node name="die" type="AudioStreamPlayer" parent="fx"]
+stream = ExtResource( 16 )
 
 [connection signal="body_entered" from="InkRadius" to="." method="_on_InkRadius_body_entered"]
 [connection signal="body_exited" from="InkRadius" to="." method="_on_InkRadius_body_exited"]
