@@ -10,7 +10,7 @@ extents = Vector2( 16, 16 )
 
 [sub_resource type="ShaderMaterial" id=2]
 shader = ExtResource( 4 )
-shader_param/percent = 1.0
+shader_param/percent = 1
 
 [node name="Block" type="StaticBody2D"]
 script = ExtResource( 1 )
@@ -18,11 +18,13 @@ ink_max = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
+disabled = true
 
 [node name="TemplateSprite" type="Sprite" parent="."]
 texture = ExtResource( 3 )
 
 [node name="InkSprite" type="Sprite" parent="."]
+visible = false
 material = SubResource( 2 )
 texture = ExtResource( 2 )
 
