@@ -2,6 +2,7 @@ extends Node
 
 var elapsed = 0
 
+
 # `pre_start()` is called when a scene is loaded.
 # Use this function to receive params from `Game.change_scene(params)`.
 func pre_start(params):
@@ -12,9 +13,6 @@ func pre_start(params):
 		for key in params:
 			var val = params[key]
 			printt("", key, val)
-	print("Processing...")
-	yield(get_tree().create_timer(2), "timeout")
-	print("Done")
 
 
 # `start()` is called when the graphic transition ends.
