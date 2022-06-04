@@ -26,6 +26,7 @@ func _ready():
 
 
 func _input_event(_viewport: Object, event: InputEvent, _shape_idx: int):
+	# Put debug-only events below
 	if not OS.is_debug_build():
 		return
 
@@ -92,6 +93,14 @@ func has_ink() -> bool:
 	return ink_value > 0
 
 
+func is_enough_ink_to_draw(ink: int) -> bool:
+	return ink_value + ink >= ink_max
+
+
+func ink_needed() -> int:
+	return ink_max - ink_value
+
+
 func get_ink_texture() -> Texture:
 	return ink_sprite.texture
 
@@ -131,7 +140,7 @@ func set_button_index(p_button_index: int) -> void:
 	button_index = p_button_index
 	if input_sprite:
 		input_sprite.visible = p_button_index >= 0
-		input_sprite.frame_coords.x = button_index
+		input_sprite.frame_coords.x = max(0, button_index)
 
 
 func get_button_index() -> int:

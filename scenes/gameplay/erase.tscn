@@ -6,7 +6,7 @@
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 2 )
 shader_param/resolution = 0.125
-shader_param/progress = null
+shader_param/progress = 1.0
 
 [node name="Erase" type="Sprite"]
 material = SubResource( 1 )

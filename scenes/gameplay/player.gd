@@ -1,6 +1,8 @@
 extends KinematicBody2D
 signal ink_changed  # updates GUI
 
+const Erase := preload("res://scenes/gameplay/erase.tscn")
+
 export (int) var ink_max = 100
 export (int) var ink_level = 100
 
@@ -39,7 +41,48 @@ func deposit_player_ink(ink_amount: int):
 	emit_signal("ink_changed", ink_level)
 
 
-func _input(event):
+func _is_num(key_event: InputEventKey) -> bool:
+	return (
+		(KEY_0 <= key_event.scancode and key_event.scancode <= KEY_9)
+		or (KEY_KP_0 <= key_event.scancode and key_event.scancode <= KEY_KP_9)
+	)
+
+
+func _get_num(key_event: InputEventKey) -> int:
+	if KEY_0 <= key_event.scancode and key_event.scancode <= KEY_9:
+		return key_event.scancode - KEY_0
+	if KEY_KP_0 <= key_event.scancode and key_event.scancode <= KEY_KP_9:
+		return key_event.scancode - KEY_KP_0
+
+	printerr("Unexpected key code: ", key_event.scancode)
+	return -1
+
+
+func _input(event: InputEvent):
+	var key_event := event as InputEventKey
+	if key_event and key_event.is_pressed() and _is_num(key_event):
+		var num := _get_num(key_event) - 1
+		if num >= ink_radius.get_overlapping_bodies().size():
+			return
+
+		var ink_block = ink_radius.get_overlapping_bodies()[num]
+		if ink_block.ink_mode:
+			# Draw
+			if withdraw_player_ink(ink_block.ink_needed()):
+				ink_block.add_ink(ink_block.ink_needed())
+				_refresh_ink_radius()
+		else:
+			# Erase
+			deposit_player_ink(ink_block.ink_value)
+			ink_block.remove_ink(ink_block.ink_max)
+			var erase := Erase.instance()
+			erase.texture = ink_block.get_ink_texture()
+			add_child(erase)
+			erase.global_transform = ink_block.global_transform
+			erase.start()
+			_refresh_ink_radius()
+
+	# Put debug-only events below
 	if not OS.is_debug_build():
 		return
 
@@ -73,16 +116,32 @@ func _physics_process(delta):
 
 
 func _on_InkRadius_body_entered(_body):
-	var overlapping_bodies := ink_radius.get_overlapping_bodies()
-	for i in overlapping_bodies.size():
-		if overlapping_bodies[i].has_method("set_button_index"):
-			overlapping_bodies[i].set_button_index(i)
+	_refresh_ink_radius()
 
 
 func _on_InkRadius_body_exited(body):
 	if body.has_method("set_button_index"):
 		body.set_button_index(-1)
+	_refresh_ink_radius()
+
+
+func _refresh_ink_radius() -> void:
 	var overlapping_bodies := ink_radius.get_overlapping_bodies()
 	for i in overlapping_bodies.size():
-		if overlapping_bodies[i].has_method("set_button_index"):
-			overlapping_bodies[i].set_button_index(i)
+		var overlapping_body = overlapping_bodies[i]
+		if overlapping_body.has_method("set_button_index"):
+			overlapping_body.set_button_index(-1)
+			if overlapping_body.is_drawn():
+				if ink_level == ink_max:
+					continue  # Cannot hold more ink
+				overlapping_body.ink_mode = 0
+			else:
+				if overlapping_body.is_enough_ink_to_draw(ink_level):
+					overlapping_body.ink_mode = 1
+				elif overlapping_body.has_ink():
+					if ink_level == ink_max:
+						continue  # Cannot hold more ink
+					overlapping_body.ink_mode = 0
+				else:
+					continue  # No ink for drawing
+			overlapping_body.set_button_index(i + 1)
