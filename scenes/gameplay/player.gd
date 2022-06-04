@@ -1,5 +1,5 @@
 extends KinematicBody2D
-signal ink_changed  # updates GUI
+signal ink_changed(level)  # updates GUI
 
 const Erase := preload("res://scenes/gameplay/erase.tscn")
 

@@ -1,14 +1,13 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://scenes/gameplay/player.tscn" type="PackedScene" id=1]
-[ext_resource path="res://scenes/gameplay/pause-layer/pause-layer.tscn" type="PackedScene" id=2]
-[ext_resource path="res://scenes/gameplay/InkDisplay.gd" type="Script" id=3]
-[ext_resource path="res://assets/sprites/barHorizontal_green.png" type="Texture" id=4]
 [ext_resource path="res://scenes/gameplay/gameplay.gd" type="Script" id=5]
 [ext_resource path="res://scenes/gameplay/ink_block.tscn" type="PackedScene" id=6]
 [ext_resource path="res://assets/sprites/tile_stone.png" type="Texture" id=7]
 [ext_resource path="res://scenes/gameplay/Door.tscn" type="PackedScene" id=8]
+[ext_resource path="res://assets/sprites/background_cloudB.png" type="Texture" id=9]
 [ext_resource path="res://scenes/gameplay/Lava.gd" type="Script" id=10]
+[ext_resource path="res://assets/sprites/background_cloudA.png" type="Texture" id=11]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -18,23 +17,26 @@ extents = Vector2( 131.723, 7.31758 )
 [node name="Gameplay" type="Node"]
 script = ExtResource( 5 )
 
-[node name="PauseLayer" parent="." instance=ExtResource( 2 )]
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
-[node name="HUD" type="CanvasLayer" parent="."]
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2( 0.7, 0.9 )
 
-[node name="InkDisplay" type="Node2D" parent="HUD"]
-script = ExtResource( 3 )
+[node name="BackgroundCloudA" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2( 451, 426 )
+texture = ExtResource( 11 )
 
-[node name="InkBar" type="TextureProgress" parent="HUD/InkDisplay"]
-margin_right = 40.0
-margin_bottom = 40.0
-value = 100.0
-texture_progress = ExtResource( 4 )
+[node name="BackgroundCloudA2" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2( 728, 261 )
+texture = ExtResource( 11 )
 
-[node name="InkCount" type="Label" parent="HUD/InkDisplay"]
-margin_right = 40.0
-margin_bottom = 14.0
-text = "Test"
+[node name="BackgroundCloudB" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2( 797, 295 )
+texture = ExtResource( 9 )
+
+[node name="BackgroundCloudA3" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2( 1223, 183 )
+texture = ExtResource( 11 )
 
 [node name="GroundBlock" type="StaticBody2D" parent="."]
 position = Vector2( 1493, 512 )
@@ -60,9 +62,6 @@ shape = SubResource( 3 )
 [node name="Door" parent="." instance=ExtResource( 8 )]
 exit = "res://scenes/levels/Level2.tscn"
 
-[node name="Player" parent="." instance=ExtResource( 1 )]
-position = Vector2( 440, 299 )
-
 [node name="Block" parent="." instance=ExtResource( 6 )]
 position = Vector2( 429, 514 )
 collision_layer = 3
@@ -80,5 +79,9 @@ collision_mask = 3
 ink_value = 1
 block_type = 1
 
+[node name="Player" parent="." instance=ExtResource( 1 )]
+position = Vector2( 440, 299 )
+ink_max = 2
+ink_level = 1
+
 [connection signal="body_entered" from="Lava" to="Lava" method="_on_Lava_body_entered"]
-[connection signal="ink_changed" from="Player" to="HUD/InkDisplay" method="_on_Player_ink_changed"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=2]
+[gd_scene load_steps=42 format=2]
 
 [ext_resource path="res://scenes/gameplay/player.gd" type="Script" id=1]
 [ext_resource path="res://assets/sprites/character_roundRed.png" type="Texture" id=2]
@@ -13,6 +13,7 @@
 [ext_resource path="res://assets/audio/fx/draw.ogg" type="AudioStream" id=11]
 [ext_resource path="res://assets/audio/fx/erase.ogg" type="AudioStream" id=12]
 [ext_resource path="res://assets/audio/fx/jump.wav" type="AudioStream" id=13]
+[ext_resource path="res://scenes/gameplay/HUD.tscn" type="PackedScene" id=14]
 [ext_resource path="res://assets/audio/fx/win.ogg" type="AudioStream" id=15]
 [ext_resource path="res://assets/audio/fx/die.ogg" type="AudioStream" id=16]
 
@@ -650,6 +651,8 @@ speed = 240
 jump_speed = -250
 gravity = 250
 
+[node name="HUD" parent="." instance=ExtResource( 14 )]
+
 [node name="BodySprite" type="Sprite" parent="."]
 texture = ExtResource( 2 )
 region_rect = Rect2( 0, 0, 30, 30 )
@@ -694,6 +697,7 @@ texture = ExtResource( 6 )
 shape = SubResource( 1 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
+current = true
 limit_left = 0
 limit_smoothed = true
 smoothing_enabled = true
@@ -738,5 +742,8 @@ stream = ExtResource( 15 )
 [node name="die" type="AudioStreamPlayer" parent="fx"]
 stream = ExtResource( 16 )
 
+[connection signal="ink_changed" from="." to="HUD/CanvasLayer/InkDisplay" method="_on_Player_ink_changed"]
 [connection signal="body_entered" from="InkRadius" to="." method="_on_InkRadius_body_entered"]
 [connection signal="body_exited" from="InkRadius" to="." method="_on_InkRadius_body_exited"]
+
+[editable path="HUD"]
