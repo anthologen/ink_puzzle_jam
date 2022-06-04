@@ -40,7 +40,7 @@ margin_bottom = 14.0
 text = "Test"
 
 [node name="GroundBlock" type="StaticBody2D" parent="."]
-position = Vector2( 1104, 269 )
+position = Vector2( 1384, 282 )
 scale = Vector2( 10.7916, 6.47228 )
 
 [node name="GroundSprite" type="Sprite" parent="GroundBlock"]
@@ -58,11 +58,10 @@ script = ExtResource( 10 )
 
 [node name="LavaCollider" type="CollisionShape2D" parent="Lava"]
 position = Vector2( 38.8728, 20.7037 )
-scale = Vector2( 1, 1 )
 shape = SubResource( 3 )
 
 [node name="Door" type="Area2D" parent="."]
-position = Vector2( 1149, 98 )
+position = Vector2( 1423, 108 )
 scale = Vector2( 1.08, 1.36 )
 script = ExtResource( 9 )
 
