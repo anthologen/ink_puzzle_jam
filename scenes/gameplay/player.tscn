@@ -29,3 +29,6 @@ collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InkRadius"]
 shape = SubResource( 2 )
+
+[connection signal="body_entered" from="InkRadius" to="." method="_on_InkRadius_body_entered"]
+[connection signal="body_exited" from="InkRadius" to="." method="_on_InkRadius_body_exited"]

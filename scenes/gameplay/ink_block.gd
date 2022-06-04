@@ -2,12 +2,14 @@ tool
 extends StaticBody2D
 
 enum BlockType { SAND }
+enum InkMode { DRAW, ERASE }
 
 export var ink_value: int setget set_ink_value, get_ink_value
 export var ink_max: int setget set_ink_max, get_ink_max
 export (BlockType) var block_type: int setget set_block_type, get_block_type
 
 var button_index := -1 setget set_button_index, get_button_index
+var ink_mode: int = InkMode.DRAW setget set_ink_mode, get_ink_mode
 
 onready var collision_shape_2d := $CollisionShape2D as CollisionShape2D
 onready var template_sprite := $TemplateSprite as Sprite
@@ -24,6 +26,9 @@ func _ready():
 
 
 func _input_event(_viewport: Object, event: InputEvent, _shape_idx: int):
+	if not OS.is_debug_build():
+		return
+
 	var mouse_button := event as InputEventMouseButton
 	if mouse_button and mouse_button.pressed:
 		if mouse_button.button_index == BUTTON_LEFT:
@@ -74,10 +79,21 @@ func get_ink_max() -> int:
 
 func _ink_updated() -> void:
 	if collision_shape_2d:
-		var drawn := ink_value == ink_max
-		collision_layer = 1 if drawn else 2
-		collision_mask = 1 if drawn else 2
-		ink_sprite.visible = drawn
+		collision_layer = 3 if is_drawn() else 2
+		collision_mask = 3 if is_drawn() else 2
+		ink_sprite.visible = is_drawn()
+
+
+func is_drawn() -> bool:
+	return ink_value == ink_max
+
+
+func has_ink() -> bool:
+	return ink_value > 0
+
+
+func get_ink_texture() -> Texture:
+	return ink_sprite.texture
 
 
 func set_block_type(p_block_type: int) -> void:
@@ -113,12 +129,20 @@ func _update_ink_progress(progress: float) -> void:
 
 func set_button_index(p_button_index: int) -> void:
 	button_index = p_button_index
-	_button_index_updated()
+	if input_sprite:
+		input_sprite.visible = p_button_index >= 0
+		input_sprite.frame_coords.x = button_index
 
 
 func get_button_index() -> int:
 	return button_index
 
 
-func _button_index_updated() -> void:
-	pass
+func set_ink_mode(p_ink_mode: int) -> void:
+	ink_mode = p_ink_mode
+	if input_sprite:
+		input_sprite.frame_coords.y = ink_mode
+
+
+func get_ink_mode() -> int:
+	return ink_mode

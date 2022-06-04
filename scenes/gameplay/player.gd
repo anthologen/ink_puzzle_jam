@@ -40,6 +40,9 @@ func deposit_player_ink(ink_amount: int):
 
 
 func _input(event):
+	if not OS.is_debug_build():
+		return
+
 	if event.is_action_pressed("test_ink_increment"):
 		var selected_obj_ink_cost = 10
 		deposit_player_ink(selected_obj_ink_cost)
@@ -67,3 +70,19 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("jump"):
 		if is_on_floor():
 			velocity.y = jump_speed
+
+
+func _on_InkRadius_body_entered(_body):
+	var overlapping_bodies := ink_radius.get_overlapping_bodies()
+	for i in overlapping_bodies.size():
+		if overlapping_bodies[i].has_method("set_button_index"):
+			overlapping_bodies[i].set_button_index(i)
+
+
+func _on_InkRadius_body_exited(body):
+	if body.has_method("set_button_index"):
+		body.set_button_index(-1)
+	var overlapping_bodies := ink_radius.get_overlapping_bodies()
+	for i in overlapping_bodies.size():
+		if overlapping_bodies[i].has_method("set_button_index"):
+			overlapping_bodies[i].set_button_index(i)
