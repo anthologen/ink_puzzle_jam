@@ -16,6 +16,8 @@ export (float, 0, 1.0) var acceleration = 0.25
 var velocity = Vector2.ZERO
 
 onready var ink_radius := $InkRadius as Area2D
+onready var animation_tree := $AnimationTree as AnimationTree
+onready var body_sprite := $BodySprite as Sprite
 
 
 func _ready():
@@ -94,25 +96,36 @@ func _input(event: InputEvent):
 		withdraw_player_ink(selected_obj_ink_cost)
 
 
-func get_input():
+func get_input() -> float:
 	var dir := 0.0
 	if Input.is_action_pressed("walk_right"):
 		dir += 1
 	if Input.is_action_pressed("walk_left"):
 		dir -= 1
-	if dir != 0.0:
-		velocity.x = lerp(velocity.x, dir * speed, acceleration)
-	else:
+	if is_zero_approx(dir):
 		velocity.x = lerp(velocity.x, 0, friction)
+	else:
+		velocity.x = lerp(velocity.x, dir * speed, acceleration)
+	return dir
 
 
 func _physics_process(delta):
-	get_input()
+	var dir := get_input()
 	velocity.y += gravity * delta
 	velocity = move_and_slide(velocity, Vector2.UP)
 	if Input.is_action_just_pressed("jump"):
 		if is_on_floor():
 			velocity.y = jump_speed
+			animation_tree["parameters/playback"].travel("jump")
+
+	if is_zero_approx(velocity.y):
+		if is_zero_approx(dir):
+			animation_tree["parameters/playback"].travel("idle")
+		else:
+			body_sprite.scale = Vector2(dir, 1)
+			animation_tree["parameters/playback"].travel("walk")
+	elif velocity.y > 0:
+		animation_tree["parameters/playback"].travel("fall")
 
 
 func _on_InkRadius_body_entered(_body):
