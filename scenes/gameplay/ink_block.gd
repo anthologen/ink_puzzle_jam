@@ -88,7 +88,7 @@ func _on_InkSprite_visibility_changed():
 		ink_material.set_shader_param("percent", 1)
 	else:
 		tween.interpolate_method(
-			self, "_update_progress", 0.0, 1.0, .5, Tween.TRANS_CUBIC, Tween.EASE_OUT
+			self, "_update_ink_progress", 0.0, 1.0, .5, Tween.TRANS_CUBIC, Tween.EASE_OUT
 		)
 
 
