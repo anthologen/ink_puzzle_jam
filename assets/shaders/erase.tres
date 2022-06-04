@@ -1,4 +1,4 @@
-[gd_resource type="VisualShader" load_steps=15 format=2]
+[gd_resource type="VisualShader" load_steps=16 format=2]
 
 [sub_resource type="VisualShaderNodeVectorDecompose" id=1]
 
@@ -15,6 +15,9 @@ source = 2
 [sub_resource type="VisualShaderNodeVectorOp" id=6]
 default_input_values = [ 0, Vector3( 0, 0, 0 ), 1, Vector3( 2, 2, 2 ) ]
 operator = 3
+
+[sub_resource type="VisualShaderNodeScalarOp" id=15]
+operator = 2
 
 [sub_resource type="VisualShaderNodeScalarUniform" id=7]
 uniform_name = "resolution"
@@ -105,9 +108,12 @@ void fragment() {
 // ScalarOp:11
 	float n_out11p0 = n_out10p0 * n_out10p1;
 
+// ScalarOp:16
+	float n_out16p0 = n_out12p1 * n_out11p0;
+
 // Output:0
 	COLOR.rgb = n_out12p0;
-	COLOR.a = n_out11p0;
+	COLOR.a = n_out16p0;
 
 }
 
@@ -116,10 +122,10 @@ void light() {
 
 }
 "
-graph_offset = Vector2( -177.545, -59.1386 )
+graph_offset = Vector2( 1389.38, 22.5 )
 mode = 1
 flags/light_only = false
-nodes/fragment/0/position = Vector2( 3640, 380 )
+nodes/fragment/0/position = Vector2( 3940, 200 )
 nodes/fragment/2/node = SubResource( 7 )
 nodes/fragment/2/position = Vector2( -40, 380 )
 nodes/fragment/3/node = SubResource( 8 )
@@ -148,4 +154,6 @@ nodes/fragment/14/node = SubResource( 5 )
 nodes/fragment/14/position = Vector2( 460, 540 )
 nodes/fragment/15/node = SubResource( 6 )
 nodes/fragment/15/position = Vector2( 900, 500 )
-nodes/fragment/connections = PoolIntArray( 2, 0, 8, 0, 2, 0, 8, 1, 7, 0, 6, 0, 5, 0, 9, 0, 5, 0, 9, 1, 9, 0, 6, 1, 6, 0, 10, 0, 10, 0, 11, 0, 10, 1, 11, 1, 11, 0, 0, 1, 12, 0, 0, 0, 3, 0, 5, 0, 2, 0, 5, 1, 4, 0, 13, 0, 2, 0, 14, 0, 2, 0, 14, 1, 14, 0, 15, 0, 15, 0, 13, 1, 8, 0, 7, 1, 13, 0, 7, 0, 2, 0, 8, 0, 2, 0, 8, 1, 7, 0, 6, 0, 5, 0, 9, 0, 5, 0, 9, 1, 9, 0, 6, 1, 6, 0, 10, 0, 10, 0, 11, 0, 10, 1, 11, 1, 11, 0, 0, 1, 12, 0, 0, 0, 3, 0, 5, 0, 2, 0, 5, 1, 4, 0, 13, 0, 2, 0, 14, 0, 2, 0, 14, 1, 14, 0, 15, 0, 15, 0, 13, 1, 8, 0, 7, 1, 13, 0, 7, 0 )
+nodes/fragment/16/node = SubResource( 15 )
+nodes/fragment/16/position = Vector2( 3500, 340 )
+nodes/fragment/connections = PoolIntArray( 2, 0, 8, 0, 2, 0, 8, 1, 7, 0, 6, 0, 5, 0, 9, 0, 5, 0, 9, 1, 9, 0, 6, 1, 6, 0, 10, 0, 10, 0, 11, 0, 10, 1, 11, 1, 12, 0, 0, 0, 3, 0, 5, 0, 2, 0, 5, 1, 4, 0, 13, 0, 2, 0, 14, 0, 2, 0, 14, 1, 14, 0, 15, 0, 15, 0, 13, 1, 8, 0, 7, 1, 13, 0, 7, 0, 2, 0, 8, 0, 2, 0, 8, 1, 7, 0, 6, 0, 5, 0, 9, 0, 5, 0, 9, 1, 9, 0, 6, 1, 6, 0, 10, 0, 10, 0, 11, 0, 10, 1, 11, 1, 12, 0, 0, 0, 3, 0, 5, 0, 2, 0, 5, 1, 4, 0, 13, 0, 2, 0, 14, 0, 2, 0, 14, 1, 14, 0, 15, 0, 15, 0, 13, 1, 8, 0, 7, 1, 13, 0, 7, 0, 12, 1, 16, 0, 11, 0, 16, 1, 16, 0, 0, 1 )
