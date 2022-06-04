@@ -1,19 +1,32 @@
 [gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://scenes/gameplay/ink_block.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/gameplay/player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/gameplay/pause-layer/pause-layer.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/gameplay/InkDisplay.gd" type="Script" id=3]
 [ext_resource path="res://assets/sprites/barHorizontal_green.png" type="Texture" id=4]
 [ext_resource path="res://scenes/gameplay/gameplay.gd" type="Script" id=5]
-
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 30, 10 )
+[ext_resource path="res://scenes/gameplay/ink_block.tscn" type="PackedScene" id=6]
 
 [node name="Gameplay" type="Node"]
 script = ExtResource( 5 )
 
 [node name="PauseLayer" parent="." instance=ExtResource( 2 )]
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="InkDisplay" type="Node2D" parent="HUD"]
+script = ExtResource( 3 )
+
+[node name="InkBar" type="TextureProgress" parent="HUD/InkDisplay"]
+margin_right = 40.0
+margin_bottom = 40.0
+value = 100.0
+texture_progress = ExtResource( 4 )
+
+[node name="InkCount" type="Label" parent="HUD/InkDisplay"]
+margin_right = 40.0
+margin_bottom = 14.0
+text = "Test"
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
 position = Vector2( 331, 69 )
@@ -21,40 +34,9 @@ speed = 240
 jump_speed = -250
 gravity = 250
 
-[node name="Block" parent="." instance=ExtResource( 1 )]
-position = Vector2( 420, 274 )
-ink_value = 2
-ink_max = 4
+[node name="Block" parent="." instance=ExtResource( 6 )]
+position = Vector2( 320, 284 )
+ink_value = 1
 
-[node name="Tween" type="Tween" parent="."]
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
-position = Vector2( 208, 211 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-shape = SubResource( 1 )
-
-[node name="StaticBody2D2" type="StaticBody2D" parent="."]
-position = Vector2( 328, 233 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
-shape = SubResource( 1 )
-
-[node name="StaticBody2D3" type="StaticBody2D" parent="."]
-position = Vector2( 439, 215 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3"]
-shape = SubResource( 1 )
-
-[node name="InkDisplay" type="Node2D" parent="."]
-script = ExtResource( 3 )
-
-[node name="InkBar" type="TextureProgress" parent="InkDisplay"]
-margin_right = 40.0
-margin_bottom = 40.0
-value = 100.0
-texture_progress = ExtResource( 4 )
-
-[node name="InkCount" type="Label" parent="InkDisplay"]
-margin_right = 40.0
-margin_bottom = 14.0
-text = "Test"
+[node name="Block2" parent="." instance=ExtResource( 6 )]
+position = Vector2( 631, 282 )
