@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://scenes/gameplay/block.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/gameplay/ink_block.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/gameplay/pause-layer/pause-layer.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/gameplay/player.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/gameplay/gameplay.gd" type="Script" id=5]
@@ -17,14 +17,8 @@ jump_speed = -250
 gravity = 250
 
 [node name="Block" parent="." instance=ExtResource( 1 )]
-position = Vector2( 294, 177 )
+position = Vector2( 420, 274 )
+ink_value = 2
+ink_max = 4
 
-[node name="Block2" parent="." instance=ExtResource( 1 )]
-position = Vector2( 339, 209 )
-ink_value = 1
-
-[node name="Block3" parent="." instance=ExtResource( 1 )]
-position = Vector2( 387, 220 )
-
-[node name="Block4" parent="." instance=ExtResource( 1 )]
-position = Vector2( 440, 197 )
+[node name="Tween" type="Tween" parent="."]

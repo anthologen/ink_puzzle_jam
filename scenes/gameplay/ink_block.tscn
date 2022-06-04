@@ -1,0 +1,29 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://scenes/gameplay/ink_block.gd" type="Script" id=1]
+[ext_resource path="res://assets/sprites/tile_sand_ink.png" type="Texture" id=2]
+[ext_resource path="res://assets/sprites/tile_sand.png" type="Texture" id=3]
+[ext_resource path="res://assets/shaders/draw.tres" type="Shader" id=4]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 16, 16 )
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = ExtResource( 4 )
+shader_param/percent = 1.0
+
+[node name="Block" type="StaticBody2D"]
+script = ExtResource( 1 )
+ink_max = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="TemplateSprite" type="Sprite" parent="."]
+texture = ExtResource( 3 )
+
+[node name="InkSprite" type="Sprite" parent="."]
+material = SubResource( 2 )
+texture = ExtResource( 2 )
+
+[connection signal="visibility_changed" from="InkSprite" to="." method="_on_InkSprite_visibility_changed"]
