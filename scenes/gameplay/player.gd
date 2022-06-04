@@ -19,6 +19,7 @@ onready var ink_radius := $InkRadius as Area2D
 onready var animation_tree := $AnimationTree as AnimationTree
 onready var body_sprite := $BodySprite as Sprite
 
+var button_indices = {}
 
 func _ready():
 	emit_signal("ink_changed", ink_level)
@@ -65,11 +66,11 @@ func _get_num(key_event: InputEventKey) -> int:
 func _input(event: InputEvent):
 	var key_event := event as InputEventKey
 	if key_event and key_event.is_pressed() and _is_num(key_event):
-		var num := _get_num(key_event) - 1
-		if num >= ink_radius.get_overlapping_bodies().size():
+		var num := _get_num(key_event)
+		if not button_indices.has(num):
 			return
 
-		var ink_block = ink_radius.get_overlapping_bodies()[num]
+		var ink_block = button_indices[num]
 		if ink_block.ink_mode:
 			# Draw
 			if withdraw_player_ink(ink_block.ink_needed()):
@@ -143,9 +144,11 @@ func _on_InkRadius_body_exited(body):
 
 func _refresh_ink_radius() -> void:
 	var overlapping_bodies := ink_radius.get_overlapping_bodies()
+	var j = 1
+	button_indices = {}
 	for i in overlapping_bodies.size():
 		var overlapping_body = overlapping_bodies[i]
-		if overlapping_body.has_method("set_button_index"):
+		if overlapping_body.has_method("set_button_index") and overlapping_body.interactive:
 			overlapping_body.set_button_index(-1)
 			if overlapping_body.is_drawn():
 				if ink_level == ink_max:
@@ -160,7 +163,9 @@ func _refresh_ink_radius() -> void:
 					overlapping_body.ink_mode = 0
 				else:
 					continue  # No ink for drawing
-			overlapping_body.set_button_index(i + 1)
+			overlapping_body.set_button_index(j)
+			button_indices[j] = overlapping_body
+			j += 1
 
 
 func level_win(exit = null):
