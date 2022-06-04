@@ -7,6 +7,7 @@ enum InkMode { DRAW, ERASE }
 export var ink_value: int setget set_ink_value, get_ink_value
 export var ink_max: int setget set_ink_max, get_ink_max
 export (BlockType) var block_type: int setget set_block_type, get_block_type
+export var interactive = true
 
 var button_index := -1 setget set_button_index, get_button_index
 var ink_mode: int = InkMode.DRAW setget set_ink_mode, get_ink_mode
@@ -41,6 +42,8 @@ func _input_event(_viewport: Object, event: InputEvent, _shape_idx: int):
 # Adds ink to this block
 # returns how much ink was left over
 func add_ink(ink: int) -> int:
+	if not interactive:
+		return ink
 	ink_value += ink
 	var overflow = ink_value - ink_max
 	ink_value = min(ink_value, ink_max)
@@ -51,6 +54,8 @@ func add_ink(ink: int) -> int:
 # Removes the requested amount of ink
 # returns how much ink was actually removed
 func remove_ink(ink: int) -> int:
+	if not interactive:
+		return 0
 	var remainder := int(min(ink, ink_value))
 	ink_value -= remainder
 	_ink_updated()
