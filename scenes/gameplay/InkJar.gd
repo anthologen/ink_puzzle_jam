@@ -14,3 +14,7 @@ func update_ink_jar(new_is_full: bool):
 		$JarInk.visible = true
 	else:
 		$JarInk.visible = false
+
+
+func has_ink() -> bool:
+	return $JarInk.visible

@@ -2,11 +2,8 @@ extends HBoxContainer
 
 const InkJar = preload("res://scenes/gameplay/InkJar.tscn")
 
-export (int) var ink_max = 3
-export (int) var ink_level = 2
 
-
-func _init():
+func _init(ink_level: int, ink_max: int):
 	for idx in ink_max:
 		if idx < ink_level:
 			add_child(InkJar.instance(true))
@@ -14,5 +11,9 @@ func _init():
 			add_child(InkJar.instance(false))
 
 
-func update_ink_jars():
-	pass
+func get_ink_level() -> int:
+	var ink_level := 0
+	for jar in get_children():
+		if jar.has_ink():
+			ink_level += 1
+	return ink_level

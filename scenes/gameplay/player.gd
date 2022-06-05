@@ -2,6 +2,7 @@ extends KinematicBody2D
 signal ink_changed(level)  # updates GUI
 
 const Erase := preload("res://scenes/gameplay/erase.tscn")
+const InkJarGroup := preload("res://scenes/gameplay/InkJarGroup.gd")
 
 export (int) var ink_max = 100
 export (int) var ink_level = 100
@@ -14,15 +15,16 @@ export (float, 0, 1.0) var friction = 0.1
 export (float, 0, 1.0) var acceleration = 0.25
 
 var velocity = Vector2.ZERO
+var button_indices = {}
 
 onready var ink_radius := $InkRadius as Area2D
 onready var animation_tree := $AnimationTree as AnimationTree
 onready var body_sprite := $BodySprite as Sprite
 
-var button_indices = {}
 
 func _ready():
 	emit_signal("ink_changed", ink_level)
+	$HUD/PauseLayer.add_child(InkJarGroup.new(ink_level, ink_max))
 
 
 func withdraw_player_ink(ink_amount: int) -> bool:
