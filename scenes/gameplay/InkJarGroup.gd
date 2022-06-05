@@ -18,3 +18,12 @@ func get_ink_level() -> int:
 		if jar.has_ink():
 			ink_level += 1
 	return ink_level
+
+
+func update_ink_level(ink_level: int):
+	for idx in get_child_count():
+		var child = get_child(idx)
+		if idx < ink_level:
+			child.add_ink()
+		else:
+			child.withdraw_ink()

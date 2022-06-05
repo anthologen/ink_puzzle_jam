@@ -20,11 +20,12 @@ var button_indices = {}
 onready var ink_radius := $InkRadius as Area2D
 onready var animation_tree := $AnimationTree as AnimationTree
 onready var body_sprite := $BodySprite as Sprite
+onready var ink_jar_group := InkJarGroup.new(ink_level, ink_max) as Node
 
 
 func _ready():
 	emit_signal("ink_changed", ink_level)
-	$HUD/PauseLayer.add_child(InkJarGroup.new(ink_level, ink_max))
+	$HUD/PauseLayer.add_child(ink_jar_group)
 
 
 func withdraw_player_ink(ink_amount: int) -> bool:
@@ -34,7 +35,7 @@ func withdraw_player_ink(ink_amount: int) -> bool:
 		return false
 	ink_level = ink_level - ink_amount
 	print("ink decremented to ", ink_level)
-	emit_signal("ink_changed", ink_level)
+	ink_jar_group.update_ink_level(ink_level)
 	$fx/draw.play()
 	return true
 
@@ -44,7 +45,7 @@ func deposit_player_ink(ink_amount: int):
 	# Any ink over max capacity is ignored.
 	ink_level = min(ink_max, ink_level + ink_amount)
 	print("ink incremented to ", ink_level)
-	emit_signal("ink_changed", ink_level)
+	ink_jar_group.update_ink_level(ink_level)
 	$fx/erase.play()
 
 
@@ -94,10 +95,10 @@ func _input(event: InputEvent):
 		return
 
 	if event.is_action_pressed("test_ink_increment"):
-		var selected_obj_ink_cost = 10
+		var selected_obj_ink_cost = 1
 		deposit_player_ink(selected_obj_ink_cost)
 	if event.is_action_pressed("test_ink_decrement"):
-		var selected_obj_ink_cost = 20
+		var selected_obj_ink_cost = 1
 		withdraw_player_ink(selected_obj_ink_cost)
 
 
