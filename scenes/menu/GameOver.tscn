@@ -1,0 +1,30 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://assets/fonts/big_font.tres" type="DynamicFont" id=1]
+[ext_resource path="res://scenes/menu/GameOver.gd" type="Script" id=2]
+
+[node name="GameOver" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 2 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+margin_right = 1920.0
+margin_bottom = 175.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 1 )
+text = "THANKS FOR PLAYING!"
+align = 1
+
+[node name="Label2" type="Label" parent="VBoxContainer"]
+margin_top = 179.0
+margin_right = 1920.0
+margin_bottom = 354.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 1 )
+text = "CREATED BY:"
+align = 1

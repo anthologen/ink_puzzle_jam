@@ -11,7 +11,7 @@
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 131.723, 7.31758 )
 
-[node name="Level2" type="Node2D"]
+[node name="Level3" type="Node2D"]
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
@@ -61,6 +61,7 @@ ink_max = 0
 
 [node name="Door" parent="Block5" instance=ExtResource( 3 )]
 position = Vector2( 3, -147 )
+exit = "res://scenes/menu/GameOver.tscn"
 
 [node name="Lava" type="Area2D" parent="."]
 position = Vector2( 1188, 818 )
