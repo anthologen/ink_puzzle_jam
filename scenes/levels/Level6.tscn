@@ -11,7 +11,7 @@
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 131.723, 7.31758 )
 
-[node name="Level3" type="Node2D"]
+[node name="Level2" type="Node2D"]
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
@@ -19,7 +19,7 @@ extents = Vector2( 131.723, 7.31758 )
 motion_scale = Vector2( 0.7, 0.9 )
 
 [node name="BackgroundCloudA" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
-position = Vector2( 451, 426 )
+position = Vector2( 1174, 240 )
 texture = ExtResource( 7 )
 
 [node name="BackgroundCloudA2" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
@@ -31,50 +31,49 @@ position = Vector2( 797, 295 )
 texture = ExtResource( 6 )
 
 [node name="BackgroundCloudA3" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
-position = Vector2( 1103, 25 )
+position = Vector2( 1636, 301 )
 texture = ExtResource( 7 )
 
 [node name="BackgroundTreeLarge" type="Sprite" parent="."]
-position = Vector2( 1274, 224 )
+position = Vector2( 1299, 105 )
 texture = ExtResource( 5 )
 
 [node name="Block" parent="." instance=ExtResource( 1 )]
-position = Vector2( 482, 622 )
+position = Vector2( 1286, 907 )
 collision_layer = 3
 collision_mask = 3
 ink_value = 1
 
 [node name="Block2" parent="." instance=ExtResource( 1 )]
-position = Vector2( 746, 546 )
+position = Vector2( 1284, 697 )
 
 [node name="Block3" parent="." instance=ExtResource( 1 )]
-position = Vector2( 1018, 473 )
+position = Vector2( 1278, 506 )
 
 [node name="Block4" parent="." instance=ExtResource( 1 )]
-position = Vector2( 1270, 413 )
+position = Vector2( 1279, 291 )
 
 [node name="Block5" parent="." instance=ExtResource( 1 )]
-position = Vector2( 1545, 362 )
+position = Vector2( 1043, 282 )
 collision_layer = 3
 collision_mask = 3
 ink_max = 0
 
 [node name="Door" parent="Block5" instance=ExtResource( 3 )]
 position = Vector2( 3, -147 )
-exit = "res://scenes/levels/megh_prototype_level.tscn"
 
 [node name="Lava" type="Area2D" parent="."]
-position = Vector2( 384, 533 )
+position = Vector2( 1188, 818 )
 scale = Vector2( 10.7916, 6.47228 )
 script = ExtResource( 4 )
 
 [node name="LavaCollider" type="CollisionShape2D" parent="Lava"]
-position = Vector2( 64.2166, 42.1799 )
+position = Vector2( 7.87651, 48.0511 )
 shape = SubResource( 1 )
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
-position = Vector2( 476, 481 )
-ink_max = 1
+position = Vector2( 1280, 766 )
+ink_max = 3
 ink_level = 0
 
 [connection signal="body_entered" from="Lava" to="Lava" method="_on_Lava_body_entered"]

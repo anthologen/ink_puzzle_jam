@@ -35,7 +35,7 @@ position = Vector2( 1636, 301 )
 texture = ExtResource( 7 )
 
 [node name="BackgroundTreeLarge" type="Sprite" parent="."]
-position = Vector2( 1862, 443 )
+position = Vector2( 1896, 466 )
 texture = ExtResource( 5 )
 
 [node name="Block" parent="." instance=ExtResource( 1 )]
@@ -103,6 +103,7 @@ ink_max = 0
 
 [node name="Door" parent="Block5" instance=ExtResource( 3 )]
 position = Vector2( 3, -147 )
+exit = "res://scenes/levels/Level6.tscn"
 
 [node name="Lava" type="Area2D" parent="."]
 position = Vector2( 1133, 570 )
