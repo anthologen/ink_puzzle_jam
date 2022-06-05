@@ -1,19 +1,18 @@
-extends Container
-
-export (bool) var is_full = true
+extends CenterContainer
 
 
-func _init(init_is_full: bool):
-	print(init_is_full)
-	update_ink_jar(init_is_full)
+func add_ink() -> bool:
+	if has_ink():
+		return false
+	$JarInk.visible = true
+	return true
 
 
-func update_ink_jar(new_is_full: bool):
-	is_full = new_is_full
-	if is_full:
-		$JarInk.visible = true
-	else:
-		$JarInk.visible = false
+func withdraw_ink() -> bool:
+	if not has_ink():
+		return false
+	$JarInk.visible = false
+	return true
 
 
 func has_ink() -> bool:

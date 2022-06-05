@@ -4,7 +4,7 @@
 [ext_resource path="res://assets/sprites/ink_jar_fill.svg" type="Texture" id=2]
 [ext_resource path="res://assets/sprites/ink_jar_empty.svg" type="Texture" id=3]
 
-[node name="InkJar" type="Container"]
+[node name="InkJar" type="CenterContainer"]
 margin_right = 40.0
 margin_bottom = 40.0
 script = ExtResource( 1 )
@@ -15,6 +15,7 @@ margin_bottom = 48.0
 texture = ExtResource( 3 )
 
 [node name="JarInk" type="TextureRect" parent="."]
+visible = false
 margin_right = 48.0
 margin_bottom = 48.0
 texture = ExtResource( 2 )

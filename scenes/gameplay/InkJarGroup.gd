@@ -5,10 +5,10 @@ const InkJar = preload("res://scenes/gameplay/InkJar.tscn")
 
 func _init(ink_level: int, ink_max: int):
 	for idx in ink_max:
+		var jar := InkJar.instance()
+		add_child(InkJar.instance())
 		if idx < ink_level:
-			add_child(InkJar.instance(true))
-		else:
-			add_child(InkJar.instance(false))
+			jar.add_ink()
 
 
 func get_ink_level() -> int:
