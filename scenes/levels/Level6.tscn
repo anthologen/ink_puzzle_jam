@@ -58,6 +58,7 @@ position = Vector2( 1044, 327 )
 collision_layer = 3
 collision_mask = 3
 ink_max = 0
+interactive = false
 
 [node name="Door" parent="Block5" instance=ExtResource( 3 )]
 position = Vector2( 3, -147 )

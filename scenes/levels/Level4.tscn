@@ -94,6 +94,7 @@ position = Vector2( 277, 569 )
 collision_layer = 3
 collision_mask = 3
 ink_max = 0
+interactive = false
 
 [node name="Door" parent="Block5" instance=ExtResource( 3 )]
 position = Vector2( 3, -147 )
@@ -106,7 +107,6 @@ script = ExtResource( 4 )
 
 [node name="LavaCollider" type="CollisionShape2D" parent="Lava"]
 position = Vector2( 32.2474, 48.0511 )
-scale = Vector2( 1, 1 )
 shape = SubResource( 1 )
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
