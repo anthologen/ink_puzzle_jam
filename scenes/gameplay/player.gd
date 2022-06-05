@@ -2,6 +2,7 @@ extends KinematicBody2D
 signal ink_changed(level)  # updates GUI
 
 const Erase := preload("res://scenes/gameplay/erase.tscn")
+const InkJarGroup := preload("res://scenes/gameplay/InkJarGroup.gd")
 
 export (int) var ink_max = 100
 export (int) var ink_level = 100
@@ -14,15 +15,17 @@ export (float, 0, 1.0) var friction = 0.1
 export (float, 0, 1.0) var acceleration = 0.25
 
 var velocity = Vector2.ZERO
+var button_indices = {}
 
 onready var ink_radius := $InkRadius as Area2D
 onready var animation_tree := $AnimationTree as AnimationTree
 onready var body_sprite := $BodySprite as Sprite
+onready var ink_jar_group := InkJarGroup.new(ink_level, ink_max) as Node
 
-var button_indices = {}
 
 func _ready():
 	emit_signal("ink_changed", ink_level)
+	$HUD/PauseLayer.add_child(ink_jar_group)
 
 
 func withdraw_player_ink(ink_amount: int) -> bool:
@@ -32,7 +35,7 @@ func withdraw_player_ink(ink_amount: int) -> bool:
 		return false
 	ink_level = ink_level - ink_amount
 	print("ink decremented to ", ink_level)
-	emit_signal("ink_changed", ink_level)
+	ink_jar_group.update_ink_level(ink_level)
 	$fx/draw.play()
 	return true
 
@@ -42,7 +45,7 @@ func deposit_player_ink(ink_amount: int):
 	# Any ink over max capacity is ignored.
 	ink_level = min(ink_max, ink_level + ink_amount)
 	print("ink incremented to ", ink_level)
-	emit_signal("ink_changed", ink_level)
+	ink_jar_group.update_ink_level(ink_level)
 	$fx/erase.play()
 
 
@@ -92,10 +95,10 @@ func _input(event: InputEvent):
 		return
 
 	if event.is_action_pressed("test_ink_increment"):
-		var selected_obj_ink_cost = 10
+		var selected_obj_ink_cost = 1
 		deposit_player_ink(selected_obj_ink_cost)
 	if event.is_action_pressed("test_ink_decrement"):
-		var selected_obj_ink_cost = 20
+		var selected_obj_ink_cost = 1
 		withdraw_player_ink(selected_obj_ink_cost)
 
 

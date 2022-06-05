@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/barHorizontal_green.png-066b35d91545de6c4666bdcc0c62ee2d.stex"
+path="res://.import/ink_jar_empty.svg-fa03603179090ee224ed6e1e43786712.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/barHorizontal_green.png"
-dest_files=[ "res://.import/barHorizontal_green.png-066b35d91545de6c4666bdcc0c62ee2d.stex" ]
+source_file="res://assets/sprites/ink_jar_empty.svg"
+dest_files=[ "res://.import/ink_jar_empty.svg-fa03603179090ee224ed6e1e43786712.stex" ]
 
 [params]
 
