@@ -49,6 +49,7 @@ interactive = false
 
 [node name="Door" parent="." instance=ExtResource( 1 )]
 position = Vector2( 1221, 344 )
+exit = "res://scenes/levels/Level4.tscn"
 
 [node name="Lava" type="Area2D" parent="."]
 position = Vector2( 860, 1014 )

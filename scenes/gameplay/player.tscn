@@ -33,7 +33,7 @@ radius = 40.0
 height = 40.0
 
 [sub_resource type="CircleShape2D" id=2]
-radius = 360.0
+radius = 270.0
 
 [sub_resource type="Animation" id=4]
 length = 0.001
@@ -818,6 +818,7 @@ texture = ExtResource( 6 )
 shape = SubResource( 1 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
+current = true
 limit_left = 0
 limit_smoothed = true
 smoothing_enabled = true
