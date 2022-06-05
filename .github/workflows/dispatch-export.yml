@@ -17,7 +17,7 @@ on:
       export_name:
         description: "Export Name"
         required: true
-        default: "godot-game-template"
+        default: "wet-ink"
       release_android:
         description: "Android Release Build"
         required: false
