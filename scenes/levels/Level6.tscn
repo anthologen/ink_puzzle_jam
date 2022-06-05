@@ -35,7 +35,7 @@ position = Vector2( 1636, 301 )
 texture = ExtResource( 7 )
 
 [node name="BackgroundTreeLarge" type="Sprite" parent="."]
-position = Vector2( 1299, 105 )
+position = Vector2( 1282, 140 )
 texture = ExtResource( 5 )
 
 [node name="Block" parent="." instance=ExtResource( 1 )]
@@ -45,16 +45,16 @@ collision_mask = 3
 ink_value = 1
 
 [node name="Block2" parent="." instance=ExtResource( 1 )]
-position = Vector2( 1284, 697 )
+position = Vector2( 1286, 704 )
 
 [node name="Block3" parent="." instance=ExtResource( 1 )]
-position = Vector2( 1278, 506 )
+position = Vector2( 1285, 525 )
 
 [node name="Block4" parent="." instance=ExtResource( 1 )]
-position = Vector2( 1279, 291 )
+position = Vector2( 1282, 332 )
 
 [node name="Block5" parent="." instance=ExtResource( 1 )]
-position = Vector2( 1043, 282 )
+position = Vector2( 1044, 327 )
 collision_layer = 3
 collision_mask = 3
 ink_max = 0

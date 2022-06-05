@@ -9,7 +9,7 @@
 [ext_resource path="res://assets/sprites/background_cloudA.png" type="Texture" id=7]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 131.723, 7.31758 )
+extents = Vector2( 171.708, 7.31758 )
 
 [node name="Level2" type="Node2D"]
 
@@ -48,37 +48,37 @@ ink_value = 1
 position = Vector2( 1613, 669 )
 
 [node name="Block6" parent="." instance=ExtResource( 1 )]
-position = Vector2( 1000, 556 )
+position = Vector2( 1000, 566 )
 collision_layer = 3
 collision_mask = 3
 ink_value = 1
 
 [node name="Block7" parent="." instance=ExtResource( 1 )]
-position = Vector2( 997, 360 )
+position = Vector2( 1000, 379 )
 collision_layer = 3
 collision_mask = 3
 ink_value = 1
 
 [node name="Block10" parent="." instance=ExtResource( 1 )]
-position = Vector2( 609, 380 )
+position = Vector2( 544, 379 )
 collision_layer = 3
 collision_mask = 3
 ink_value = 1
 
 [node name="Block11" parent="." instance=ExtResource( 1 )]
-position = Vector2( 603, 549 )
+position = Vector2( 544, 568 )
 collision_layer = 3
 collision_mask = 3
 ink_value = 1
 
 [node name="Block8" parent="." instance=ExtResource( 1 )]
-position = Vector2( 804, 559 )
+position = Vector2( 777, 567 )
 collision_layer = 3
 collision_mask = 3
 ink_value = 1
 
 [node name="Block9" parent="." instance=ExtResource( 1 )]
-position = Vector2( 806, 370 )
+position = Vector2( 775, 379 )
 collision_layer = 3
 collision_mask = 3
 ink_value = 1
@@ -105,7 +105,8 @@ scale = Vector2( 10.7916, 6.47228 )
 script = ExtResource( 4 )
 
 [node name="LavaCollider" type="CollisionShape2D" parent="Lava"]
-position = Vector2( 7.87651, 48.0511 )
+position = Vector2( 32.2474, 48.0511 )
+scale = Vector2( 1, 1 )
 shape = SubResource( 1 )
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
