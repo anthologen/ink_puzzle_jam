@@ -1,7 +1,6 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://scenes/gameplay/player.tscn" type="PackedScene" id=1]
-[ext_resource path="res://scenes/gameplay/HUD.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/gameplay/gameplay.gd" type="Script" id=5]
 [ext_resource path="res://scenes/gameplay/ink_block.tscn" type="PackedScene" id=6]
 [ext_resource path="res://assets/sprites/tile_stone.png" type="Texture" id=7]
@@ -84,7 +83,5 @@ block_type = 1
 position = Vector2( 440, 299 )
 ink_max = 2
 ink_level = 1
-
-[node name="HUD" parent="." instance=ExtResource( 2 )]
 
 [connection signal="body_entered" from="Lava" to="Lava" method="_on_Lava_body_entered"]
