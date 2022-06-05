@@ -25,6 +25,7 @@ onready var _loader_mt = \
 var _params = {}
 var _loading_start_time = 0
 
+var _loading_mutex = false
 
 func _ready():
 	_loader_mt.name = "ResourceLoaderMultithread"
@@ -99,6 +100,9 @@ func change_scene_multithread(new_scene: String, params = {}):
 
 # Single thread interactive loading
 func change_scene_background_loading(new_scene: String, params = {}):
+	if _loading_mutex:
+		return
+	_loading_mutex = true
 	_loader_ri.connect(
 		"resource_loaded",
 		self,
@@ -131,3 +135,4 @@ func _on_resource_loaded(resource):
 	if transitions and load_time < MINIMUM_TRANSITION_DURATION:
 		yield(get_tree().create_timer((MINIMUM_TRANSITION_DURATION - load_time) / 1000.0), "timeout")
 	_set_new_scene(resource)
+	_loading_mutex = false
