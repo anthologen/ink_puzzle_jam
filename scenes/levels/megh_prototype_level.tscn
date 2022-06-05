@@ -1,19 +1,37 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://scenes/gameplay/Door.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/gameplay/Lava.gd" type="Script" id=2]
 [ext_resource path="res://scenes/gameplay/ink_block.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/gameplay/player.tscn" type="PackedScene" id=4]
+[ext_resource path="res://assets/sprites/background_cloudB.png" type="Texture" id=5]
+[ext_resource path="res://assets/sprites/background_cloudA.png" type="Texture" id=6]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 131.723, 7.31758 )
 
-[node name="Level3" type="Node2D"]
+[node name="Level4" type="Node2D"]
 
-[node name="Player" parent="." instance=ExtResource( 4 )]
-position = Vector2( 464, 530 )
-ink_max = 1
-ink_level = 1
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2( 0.7, 0.9 )
+
+[node name="BackgroundCloudA" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2( 451, 426 )
+texture = ExtResource( 6 )
+
+[node name="BackgroundCloudA2" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2( 728, 261 )
+texture = ExtResource( 6 )
+
+[node name="BackgroundCloudB" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2( 797, 295 )
+texture = ExtResource( 5 )
+
+[node name="BackgroundCloudA3" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2( 1103, 25 )
+texture = ExtResource( 6 )
 
 [node name="Block" parent="." instance=ExtResource( 3 )]
 position = Vector2( 461, 670 )
@@ -59,5 +77,10 @@ script = ExtResource( 2 )
 [node name="LavaCollider" type="CollisionShape2D" parent="Lava"]
 position = Vector2( 64.2166, 42.1799 )
 shape = SubResource( 1 )
+
+[node name="Player" parent="." instance=ExtResource( 4 )]
+position = Vector2( 464, 530 )
+ink_max = 1
+ink_level = 1
 
 [connection signal="body_entered" from="Lava" to="Lava" method="_on_Lava_body_entered"]
